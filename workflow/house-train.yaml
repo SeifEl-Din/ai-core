@@ -11,6 +11,8 @@ metadata:
     scenarios.ai.sap.com/id: "house-price-prediction"
     ai.sap.com/version: "1.0.0"
 spec:
+  imagePullSecrets:
+    - name: seifeldinfathi
   entrypoint: main
   templates:
     - name: main
