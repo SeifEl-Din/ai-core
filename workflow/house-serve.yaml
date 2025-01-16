@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: house-serve
+  annotations:
+    scenarios.ai.sap.com/description: "Workflow for serving a house price prediction model"
+    scenarios.ai.sap.com/name: "House Price Prediction (Serving)"
+    executables.ai.sap.com/description: "Serve the trained model for predictions"
+    executables.ai.sap.com/name: "house-serve"
+  labels:
+    scenarios.ai.sap.com/id: "house-price-prediction"
+    ai.sap.com/version: "1.0.0"
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      container:
+        image: python:3.8
+        command: [python, /app/serve.py]
+        workingDir: /app
+        env:
+          - name: MODEL_PATH
+            value: "/app/model"
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+          requests:
+            memory: "1Gi"
+            cpu: "0.5"
